@@ -1,26 +1,38 @@
 import React from 'react'
-import {Link} from 'react-router-dom'
+import {Link, Form, redirect, useNavigation} from 'react-router-dom'
 import Wrapper from '../assets/wrappers/RegisterAndLoginPage'
-import { FormRow } from '../components'
+import { FormRow, SubmitBtn } from '../components'
+import customFetch from '../../../server/utils/customFetch'
+import { toast } from 'react-toastify'
+
+export const action = async ({request}) => {
+  const formData = await request.formData()
+  const data = Object.fromEntries(formData)
+  try {
+    await customFetch.post('/auth/login', data)  
+    toast.success('Login Successful')
+
+    return redirect('/dashboard')
+  } catch (error) {
+    toast.error(error?.response?.data?.msg)
+    
+    return error
+  }
+}
 
 const Login = () => {
   return (
     <Wrapper>
-      <form className='form'>
-        <img src='../src/assets/images/logo.png' className='fav'></img>
+      <Form method='post' className='form'>
+        <img src='../src/assets/images/logo-no-bg.png' className='fav'></img>
         <h4>LOGIN</h4>
-        <FormRow type='email' name='email' defaultValue='admin@user.com' />
-        <FormRow type='password' name='password' defaultValue='password' />
-        <button type='submit' className='btn btn-block'>
-          submit
-        </button>
-        <button type='button' className='btn btn-block'>
-          explore the app
-        </button>
-        <p>Not a Member Yet ?
+        <FormRow type='email' name='email'  />
+        <FormRow type='password' name='password'  />
+        <SubmitBtn />
+        <p>Not a Member Yet ?          
         <Link to='/register' className='member-btn'>Register</Link>
         </p>
-      </form>
+      </Form>
     </Wrapper>
   )
 }

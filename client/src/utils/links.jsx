@@ -1,24 +1,29 @@
 import React from 'react';
 import { IoBarChartSharp } from 'react-icons/io5';
 import { MdQueryStats } from 'react-icons/md';
-import { FaWpforms } from 'react-icons/fa';
+import { FaAcquisitionsIncorporated, FaAddressCard, FaFacebookMessenger, FaShieldAlt, FaBug, FaUserShield, FaWpforms } from 'react-icons/fa';
 import { ImProfile } from 'react-icons/im';
-import { MdAdminPanelSettings } from 'react-icons/md';
+import { MdAdminPanelSettings, MdMessage } from 'react-icons/md';
 
 const links = [
+    {
+    text: 'Dashboard',
+    path:'.',
+    icon: <FaShieldAlt />
+    },
     { 
-    text: 'Home', 
-    path: '.', 
+    text: 'Add Content', 
+    path: 'add-job', 
     icon: <FaWpforms /> 
 },
     { 
-    text: 'Tasks', 
-    path: 'Tasks', 
+    text: 'All Contents', 
+    path: 'all-jobs', 
     icon: <MdQueryStats /> 
 },
     { 
-    text: 'Content', 
-    path: 'Content', 
+    text: 'stats', 
+    path: 'stats', 
     icon: <IoBarChartSharp /> 
 },
     { 
@@ -31,6 +36,16 @@ const links = [
     path: 'admin', 
     icon: <MdAdminPanelSettings /> 
 },
+    {
+    text: 'report bugs',
+    path: 'issues',
+    icon: <FaBug />
+},
+    {
+    text: 'messages',
+    path: 'messages',
+    icon: <MdMessage/>,
+    }
   ];
   
   export default links;

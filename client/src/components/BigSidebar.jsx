@@ -1,7 +1,7 @@
 import React from 'react'
 import Wrapper from '../assets/wrappers/BigSidebar'
 import NavLinks from './NavLinks'
-import logo from '../assets/images/logo.png'
+import logo from '../assets/images/logo-no-bg.png'
 import { useDashboardContext } from '../pages/DashboardLayout'
 
 const BigSidebar = () => {

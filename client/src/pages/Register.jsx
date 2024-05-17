@@ -1,28 +1,85 @@
-import React from 'react';
-import {Form, Link} from 'react-router-dom'
-import Wrapper from '../assets/wrappers/RegisterAndLoginPage'
-import {FormRow, Logo} from '../components'
+import React, { useState } from 'react';
+import { Form, redirect, useNavigation, Link } from 'react-router-dom';
+import Wrapper from '../assets/wrappers/RegisterAndLoginPage';
+import { FormRow, SubmitBtn } from '../components';
+import customFetch from '../../../server/utils/customFetch';
+import { toast } from 'react-toastify';
+
+// Assuming STANDARDS is defined in constants.js
+import { STANDARDS } from '../../../server/utils/constants';
+
+export const action = async ({ request }) => {
+  const formData = await request.formData();
+  const data = Object.fromEntries(formData);
+  
+  try {
+    await customFetch.post('/auth/register', data);
+    toast.success('Registration Successful');
+    return redirect('/login');
+  } catch (error) {
+    toast.error(error?.response?.data?.msg);
+    return error;
+  }
+};
 
 const Register = () => {
+  const [showStandardsDropdown, setShowStandardsDropdown] = useState(false);
+  
+  const handleRoleChange = (e) => {
+    if (e.target.value === 'user') {
+      setShowStandardsDropdown(true);
+    } else {
+      setShowStandardsDropdown(false);
+    }
+  };
+
   return (
     <Wrapper>
-      <form className='form'>
+      <Form method='post' className='form'>
         <img src='../src/assets/images/logo.png' className='fav'></img>
         <h4>REGISTER</h4>
-        <FormRow type="text" name="name" defaultValue="admin" />
-        <FormRow type="text" name="lastName" labelText='lastname' defaultValue="user" />
-        <FormRow type="text" name="location" defaultValue="earth" />
-        <FormRow type="email" name="email" defaultValue="admin@user.com" />
-        <FormRow type="password" name="password" defaultValue="password" />
-        <button type='submit' className='btn btn-block'>
-          submit
-        </button>
-        <p>Already a Member ?
-        <Link to='/login' className='member-btn'>Login</Link>
+        <FormRow type="text" name="name"  />
+        <FormRow type="email" name="email"  />
+        <FormRow type="password" name="password"  />
+        <div className="form-group">
+          <label>Role:</label>
+          <div>
+            <label>
+              <input 
+                type="radio" 
+                name="role" 
+                value="user" 
+                onChange={handleRoleChange} 
+              /> Student
+            </label>
+            <label>
+              <input 
+                type="radio" 
+                name="role" 
+                value="admin" 
+                onChange={() => setShowStandardsDropdown(false)} 
+              /> Teacher
+            </label>
+          </div>
+        </div>
+        {showStandardsDropdown && (
+          <div className="form-group">
+            <label>Select Standard:</label>
+            <select name="standard">
+              {STANDARDS.map((standard, index) => (
+                <option key={index} value={standard}>{standard}</option>
+              ))}
+            </select>
+          </div>
+        )}
+        <SubmitBtn />
+        <p>
+          Already a Member?
+          <Link to='/login' className='member-btn'>Login</Link>
         </p>
-      </form>
+      </Form>
     </Wrapper>
-  )
-}
+  );
+};
 
-export default Register
+export default Register;
