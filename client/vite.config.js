@@ -7,7 +7,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'http://localhost:5200/api',
+        target: 'https://virtual-vidhya-api.vercel.app/api',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, ''),
       },
