@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { toast } from 'react-toastify';
-import customFetch from '../utils/customFetch';
+// import customFetch from '../utils/customFetch';
+import axios from 'axios';
 import Wrapper from '../assets/wrappers/DashboardFormPage';
 
 const AddJob = () => {
@@ -44,7 +45,7 @@ const AddJob = () => {
       formData.append('standard', standard);
       formData.append('video', video);
       const data = Object.fromEntries(formData);
-      const response = await customFetch.post('/jobs', data);
+      const response = await axios.post('/api/v1/jobs', data);
       if (response.status === 201) {
         const contentType = response.headers.get('content-type');
         if (contentType && contentType.includes('application/json')) {
@@ -78,7 +79,7 @@ const AddJob = () => {
       return null;
     }
     try {
-      await customFetch.post('/jobs/files', formData);
+      await axios.post('/pi/v1/jobs/files', formData);
       window.location.href = '/dashboard/all-jobs';
       toast.success('File uploaded successfully');
     } catch (error) {

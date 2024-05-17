@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import Wrapper from '../assets/wrappers/DashboardFormPage';
 import { useOutletContext, Form, redirect } from 'react-router-dom';
 import { FaUser } from 'react-icons/fa'; // Assuming you're using Font Awesome for icons
-import customFetch from '../utils/customFetch';
+// import customFetch from '../utils/customFetch';
+import axios from 'axios';
 import { toast } from 'react-toastify';
 import { FormRow, SubmitBtn } from '../components';
 
@@ -11,7 +12,7 @@ export const action = async ({ request }) => {
   const formData = await request.formData();
   const dat = Object.fromEntries(formData);
   try {
-    await customFetch.patch('/users/update-user', dat);
+    await axios.patch('api/v1/users/update-user', dat);
     toast.success("Password updated successfully");
     return redirect('/dashboard');
   } catch (error) {

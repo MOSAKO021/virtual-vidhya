@@ -2,14 +2,15 @@ import React from 'react'
 import {Link, Form, redirect, useNavigation} from 'react-router-dom'
 import Wrapper from '../assets/wrappers/RegisterAndLoginPage'
 import { FormRow, SubmitBtn } from '../components'
-import customFetch from '../../../server/utils/customFetch'
+import axios from 'axios'
+// import customFetch from '../../../server/utils/customFetch'
 import { toast } from 'react-toastify'
 
 export const action = async ({request}) => {
   const formData = await request.formData()
   const data = Object.fromEntries(formData)
   try {
-    await customFetch.post('/auth/login', data)  
+    await axios.post('/api/v1/auth/login', data)  
     toast.success('Login Successful')
 
     return redirect('/dashboard')

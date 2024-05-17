@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { Form, redirect, useNavigation, Link } from 'react-router-dom';
+import { Form, redirect, Link } from 'react-router-dom';
 import Wrapper from '../assets/wrappers/RegisterAndLoginPage';
 import { FormRow, SubmitBtn } from '../components';
-import customFetch from '../../../server/utils/customFetch';
+import axios from 'axios';
+// import customFetch from '../../../server/utils/customFetch';
 import { toast } from 'react-toastify';
 
 // Assuming STANDARDS is defined in constants.js
@@ -13,7 +14,7 @@ export const action = async ({ request }) => {
   const data = Object.fromEntries(formData);
   
   try {
-    await customFetch.post('/auth/register', data);
+    await axios.post('/api/v1/auth/register', data);
     toast.success('Registration Successful');
     return redirect('/login');
   } catch (error) {

@@ -1,7 +1,8 @@
 import React from 'react'
 import { toast } from 'react-toastify';
 import { JobsContainer } from '../components';
-import customFetch from '../utils/customFetch';
+// import customFetch from '../utils/customFetch';
+import axios from 'axios';
 import { useLoaderData } from 'react-router-dom';
 import { useContext, createContext } from 'react';
 import SearchContainer from '../components/SearchContainer';
@@ -12,7 +13,7 @@ export const loader = async({request}) => {
   ]);
   // console.log(params);
   try {
-    const {data} = await customFetch.get('/jobs',{
+    const {data} = await axios.get('/api/v1/jobs',{
       params,
     })
     // console.log(data,"fghhgfghgf");

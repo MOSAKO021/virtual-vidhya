@@ -3,12 +3,13 @@ import { Outlet, redirect, useLoaderData, useNavigate } from 'react-router-dom'
 import Wrapper from '../assets/wrappers/Dashboard'
 import { Navbar, SmallSidebar, BigSidebar } from '../components'
 import { checkDefaultTheme } from '../App'
-import customFetch from '../../../server/utils/customFetch'
+// import customFetch from '../../../server/utils/customFetch'
+import axios from 'axios'
 import {toast} from 'react-toastify'
  
 export const loader = async() => {
   try {
-    const {data} = await customFetch.get('/users/current-user')
+    const {data} = await axios.get('api/v1/users/current-user')
     return data
   } catch (error) {
     return redirect('/')
@@ -37,7 +38,7 @@ const DashboardLayout = () => {
 
   const logoutUser = async () => {
     navigate('/')
-    await customFetch.get('/auth/logout')
+    await axios.get('/api/v1/auth/logout')
     toast.success('Logout Successful')
   };
 

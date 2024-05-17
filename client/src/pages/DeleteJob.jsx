@@ -4,7 +4,7 @@ import { redirect } from 'react-router-dom'
 
 export const action = async({params}) => {
   try {
-    await customFetch.delete(`/jobs/${params.id}`)
+    await customFetch.delete(`/api/v1/jobs/${params.id}`)
     toast.success('Content deleted successfully')
   } catch (error) {
     toast.error(error?.response?.data?.msg)

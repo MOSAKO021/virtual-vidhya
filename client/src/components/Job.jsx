@@ -5,7 +5,8 @@ import Wrapper from '../assets/wrappers/Job';
 import JobInfo from './JobInfo';
 import day from 'dayjs';
 import advancedFormat from 'dayjs/plugin/advancedFormat';
-import customFetch from '../utils/customFetch';
+// import customFetch from '../utils/customFetch';
+import axios from 'axios';
 
 day.extend(advancedFormat);
 
@@ -25,7 +26,7 @@ const Job = ({
   useEffect(() => {
     const fetchUserName = async () => {
       try {
-        const response = await customFetch.get(`/getTeacher/getTeacher/${createdBy}`);
+        const response = await axios.get(`/api/v1/getTeacher/getTeacher/${createdBy}`);
         setUserName(response.data.name);
       } catch (error) {
         console.error('Error fetching username:', error);

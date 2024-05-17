@@ -2,7 +2,8 @@ import React from 'react'
 import {FaChalkboardTeacher, FaUserGraduate, FaCheckCircle, FaExclamationTriangle} from 'react-icons/fa';
 
 import { useLoaderData, redirect } from 'react-router-dom';
-import customFetch from '../utils/customFetch';
+// import customFetch from '../utils/customFetch';
+import axios from 'axios';
 import Wrapper from '../assets/wrappers/StatsContainer';
 import { toast } from 'react-toastify';
 import { StatItem } from '../components';
@@ -10,7 +11,7 @@ import { StatItem } from '../components';
 
 export const loader = async () => {
   try {
-    const response = await customFetch.get('/users/admin/app-stats')
+    const response = await axios.get('/api/v1/users/admin/app-stats')
     return response.data
   } catch (error) {
     toast.error('You are not authorized to view this page')

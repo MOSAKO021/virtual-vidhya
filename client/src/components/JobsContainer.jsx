@@ -3,7 +3,8 @@ import { useAllJobsContext } from '../pages/AllJobs';
 import React, { useState, useEffect } from 'react';
 import Job from './Job';
 import Wrapper from '../assets/wrappers/JobsContainer';
-import customFetch from '../utils/customFetch';
+// import customFetch from '../utils/customFetch'
+import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 const JobsContainer = () => {
@@ -19,7 +20,7 @@ const JobsContainer = () => {
     useEffect(() => {
         const fetchUserData = async () => {
             try {
-                const response = await customFetch.get('/users/current-user');
+                const response = await axios.get('api/v1/users/current-user');
                 setUserData(response.data.user);
             } catch (error) {
                 console.error('Error fetching user data:', error);

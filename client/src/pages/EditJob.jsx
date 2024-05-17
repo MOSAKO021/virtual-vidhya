@@ -4,11 +4,12 @@ import Wrapper from '../assets/wrappers/DashboardFormPage';
 import { useLoaderData, useParams } from 'react-router-dom';
 import { Form, useNavigation, redirect } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import customFetch from '../utils/customFetch';
+// import customFetch from '../utils/customFetch';
+import axios from 'axios';
 
 export const loader = async ({params}) => {
   try {
-    const {data} = await customFetch.get(`/jobs/${params.id}`)
+    const {data} = await axios.get(`/api/v1/jobs/${params.id}`)
     return data
     return null;
   } catch (error) {
@@ -20,7 +21,7 @@ export const action = async ({request, params}) => {
   const formData = await request.formData()
   // const data = Object.fromEntries(formData)
   try {
-    await customFetch.patch(`/jobs/${params.id}`)
+    await axios.patch(`/api/v1/jobs/${params.id}`)
     toast.success('Job edited successfully')
     return redirect('/dashboard/all-jobs')
   } catch (error) {
