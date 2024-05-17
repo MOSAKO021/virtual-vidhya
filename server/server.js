@@ -6,6 +6,7 @@ import morgan from 'morgan';
 import mongoose from 'mongoose';
 import cookieParser from 'cookie-parser';
 import multer from 'multer';
+import cors from 'cors';
 
 import jobRouter from './routes/jobRouter.js'
 import authRouter from './routes/authRouter.js'
@@ -29,6 +30,14 @@ app.use('/public/uploads', express.static(path.resolve(__dirname, 'public/upload
 
 app.use(cookieParser());
 app.use(express.json());
+
+app.use(cors(
+    {
+        origin: ["https://virtual-vidhya.vercel.app"],
+        methods: ['POST', 'GET', 'DELETE'],
+        credentials: true
+    }
+));
 
 // app.get('/', (req, res) => {
 //   res.send('Backend 5200');
